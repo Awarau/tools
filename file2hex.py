@@ -23,8 +23,8 @@ def filetohex(filename, en):
 
 def format_print(hex):
 
-        y = 1
-        x = 8
+        y = 1 #space index for presentation
+        x = 8 #newline index for presentation
 
         hex = ''.join(hex)
         hex = re.findall('....', hex)
@@ -45,10 +45,9 @@ def format_print(hex):
         
  def little_en(hex):
 
-        i = 0
-        j = 1
-        y = 1
-
+        i = 0 #swap even index
+        j = 1 #swap odd index
+   
         hex = hex.decode('utf-8')
         hex = re.findall('..', hex)
 
