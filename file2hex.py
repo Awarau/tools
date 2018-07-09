@@ -40,14 +40,20 @@ def little_en(hex):
 def format_print(hex):
 
         y = 1
+        x = 8
 
         hex = ''.join(hex)
         hex = re.findall('....', hex)
+
+        while(x < len(hex)):
+                hex.insert(x, '\n')
+                x = x + 9
 
         while(y < len(hex)):
                 hex.insert(y, ' ')
                 y = y + 2
 
+        hex.insert(0, ' ')
         hex = ''.join(hex)
 
         print(hex)
