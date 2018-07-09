@@ -1,4 +1,4 @@
-#This python3 code takes in a file and outputs an organised set of shellcode
+#This python3 code takes in a file and outputs shellcode, or disassembly. 
 
 import binascii
 import sys
