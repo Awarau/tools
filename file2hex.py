@@ -82,9 +82,7 @@ def disasm(content):
 #~ ########   ~!#!~~~~~!#!~~~~~!#!~%%####&&7
 
 if args.hex:
-
         filetohex(args.hex, "little")
 
 if args.disasm:
-
         disasm(args.disasm)
