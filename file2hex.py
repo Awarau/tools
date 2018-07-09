@@ -21,22 +21,6 @@ def filetohex(filename, en):
         if en == 'big':
                 big_en(content)
 
-def little_en(hex):
-
-        i = 0
-        j = 1
-        y = 1
-
-        hex = hex.decode('utf-8')
-        hex = re.findall('..', hex)
-
-        while(j < len(hex)):
-                hex[i], hex[j] = hex[j], hex[i]
-                i = i + 2
-                j = j + 2
-
-        format_print(hex)
-
 def format_print(hex):
 
         y = 1
@@ -57,6 +41,23 @@ def format_print(hex):
         hex = ''.join(hex)
 
         print(hex)
+        
+        
+ def little_en(hex):
+
+        i = 0
+        j = 1
+        y = 1
+
+        hex = hex.decode('utf-8')
+        hex = re.findall('..', hex)
+
+        while(j < len(hex)):
+                hex[i], hex[j] = hex[j], hex[i]
+                i = i + 2
+                j = j + 2
+
+        format_print(hex)       
 
 def big_en(hex):
 
