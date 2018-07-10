@@ -4,6 +4,16 @@
 
 #define OL 0
 
+struct func_metadata
+{
+        int begin_pos;
+        int end_pos;
+        int func_id;
+
+        char *call_ids[];
+};
+
+
 
 void find_function_main(char *buffer, size_t size)
 {
@@ -17,18 +27,23 @@ void find_function_main(char *buffer, size_t size)
         //   between declaration and call.                                                                                                      //
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        char *search = "void";
-        int len = strlen(search);
+        int len;
         int position;
         char *found;
+        char *search;
+
+        search = "void";
+        len = strlen(search);
 
         if(len > 0)
                 found = strstr(buffer, search);
-                if(found != NULL)
+                if(found != NULL) {
                         position = (int)(found - buffer);
-
-        printf("%d\n", position);
-
+                        printf("%d\n", position);
+                }
+                else {
+                        printf("Not found\n");
+                }
         return;
 }
 
