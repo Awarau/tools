@@ -15,7 +15,7 @@ struct func_metadata
 
 
 
-void find_function_main(char *buffer, size_t size)
+void find_function_main(char *buffer)
 {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //what are the conditions needed for us to read a pattern as a function?                                                                //
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
                 buffer = calloc(size, sizeof(char));
                 fread(buffer, sizeof(char), size, fp);
 
-                find_function_main(buffer, size);
+                find_function_main(buffer);
 
                 fclose(fp);
                 free(buffer);
