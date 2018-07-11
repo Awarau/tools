@@ -9,42 +9,45 @@ struct func_metadata
         int begin_pos;
         int end_pos;
         int func_id;
-
         char *call_ids[];
 };
 
-
-
 void find_function_main(char *buffer)
 {
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //what are the conditions needed for us to read a pattern as a function?                                                                //
-        //1. is a word followed by a '(' followed by either a ')' + '\n{' or '{\n' or by words and a ')' ...                                    //
-        //2. difference between a definition, declaration, and call:                                                                            //
-        //   - definition doesn't have {}, it's merely a primitive. - declaration is outside a function (followed by ;).                        //
-        //   - call is from inside a function, (followed by ;).                                                                                 //
-        //3. I will need a bool which signifies whether we are reading within a function or outside a function. This will signify the different //
-        //   between declaration and call.                                                                                                      //
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         int len;
-        int position;
-        char *found;
-        char *search;
+        char print_string[40];
+        char *found_begin_pos;
+        char *found_end_pos;
+        char *search_begin;
+        char *search_end;
+        struct func_metadata main;
 
-        search = "void";
-        len = strlen(search);
+        search_begin = "void";
+        search_end = "{";
+        len = strlen(search_begin);
 
         if(len > 0)
-                found = strstr(buffer, search);
-                if(found != NULL) {
-                        position = (int)(found - buffer);
-                        printf("%d\n", position);
+                found_begin_pos = strstr(buffer, search_begin);
+                if(found_begin_pos != NULL) {
+                        main.begin_pos = (int)(found_begin_pos - buffer);
+                        printf("%d\n", main.begin_pos);
+
+                        found_end_pos = strstr(buffer+main.begin_pos, search_end);
+                        if(found_end_pos != NULL) {
+                                main.end_pos = (int)(found_end_pos - buffer);
+                                printf("%d\n", main.end_pos);
+                        }
+                        else
+                                printf("Not found end\n");
                 }
-                else {
-                        printf("Not found\n");
-                }
-        return;
+                else
+                        printf("Not found begin\n");
+
+        char subbuff[5000];
+        memcpy(subbuff, buffer+main.begin_pos, main.end_pos - main.begin_pos);
+        subbuff[main.end_pos - main.begin_pos] = '\0';
+
+        printf("%s\n", subbuff);
 }
 
 
@@ -64,8 +67,7 @@ int main(int argc, char *argv[])
 
         if(fp == NULL)
                 printf("File not found\n");
-        else
-        {
+        else {
                 fseek(fp, OL, SEEK_END);
                 size = ftell(fp);
                 fseek(fp, OL, SEEK_SET);
