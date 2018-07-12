@@ -27,7 +27,7 @@ void find_function_main(char *buffer)
         len = strlen(search_begin);
 
         if(len > 0)
-                found_begin_pos = strstr(buffer, search_begin);
+                found_begin_pos = strstr(buffer, search_begin);       /* maybe i should make this repeated code more modular */
                 if(found_begin_pos != NULL) {
                         main.begin_pos = (int)(found_begin_pos - buffer);
                         printf("%d\n", main.begin_pos);
@@ -36,18 +36,25 @@ void find_function_main(char *buffer)
                         if(found_end_pos != NULL) {
                                 main.end_pos = (int)(found_end_pos - buffer);
                                 printf("%d\n", main.end_pos);
+
+                                char subbuff[main.end_pos - main.begin_pos];
+                                memcpy(subbuff, buffer+main.begin_pos, main.end_pos - main.begin_pos);
+                                subbuff[main.end_pos - main.begin_pos] = '\0';
+
+                                printf("%s", subbuff);
+
                         }
                         else
                                 printf("Not found end\n");
+                                return;
                 }
                 else
                         printf("Not found begin\n");
+                        return;
 
-        char subbuff[5000];
-        memcpy(subbuff, buffer+main.begin_pos, main.end_pos - main.begin_pos);
-        subbuff[main.end_pos - main.begin_pos] = '\0';
-
-        printf("%s\n", subbuff);
+        //should i use _recursion_ here to find all instances of function definitions?
+        //find_function_main(buffer+main.end_pos, ); while buffer != EOF;
+        return;
 }
 
 
