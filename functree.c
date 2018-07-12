@@ -42,7 +42,6 @@ void find_function_main(char *buffer)
                                 subbuff[main.end_pos - main.begin_pos] = '\0';
 
                                 printf("%s", subbuff);
-
                         }
                         else
                                 printf("Not found end\n");
